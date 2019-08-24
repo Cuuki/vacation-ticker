@@ -1,0 +1,15 @@
+{
+  "name": "vacation-ticker",
+  "version": "0.1.0",
+  "description": "You've always been asking yourself how long it is until your next holiday? Say no more - we have the fix for that.",
+  "main": "app/index.js",
+  "repository": "https://github.com/Cuuki/vacation-ticker.git",
+  "author": "Patrick Söllner <mail@patrick-soellner.de>",
+  "license": "MIT",
+  "dependencies": {
+    "material-components-web": "^3.1.1"
+  },
+  "scripts": {
+    "test": "test/index.js"
+  }
+}
