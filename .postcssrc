@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "postcss-nesting": {},
+    "postcss-color-function": {},
+    "postcss-preset-env": { "stage": 0 },
+    "cssnano": {}
+  }
+}
