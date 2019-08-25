@@ -5,4 +5,3 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
 script:
   - yarn install
-  - yarn test
