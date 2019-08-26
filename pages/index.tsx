@@ -5,8 +5,10 @@ export default class extends React.Component {
     render() {
         return (
             <div>
-                <h1><span>Vacation ticker</span></h1>
-                <Button variant="contained" color="primary">
+                <h1>
+                    <span>Vacation ticker</span>
+                </h1>
+                <Button variant='contained' color='primary'>
                     Hello World
                 </Button>
                 <style jsx>{`
