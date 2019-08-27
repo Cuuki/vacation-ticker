@@ -1,0 +1,7 @@
+**/*.min.js
+**/dist/
+**/vendor/
+
+# Third party
+**/node_modules
+**/.next

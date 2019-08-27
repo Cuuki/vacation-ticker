@@ -2497,9 +2497,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.191:
-  version "1.3.240"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.240.tgz#8e278c4d2b3a96fa865725589277c05c8a1e9584"
-  integrity sha512-cMlX5lQpTzLZI0CsC4Mt2sl6z3jz1RvN/8rIqqwqWy3LYCnu8TUf5o8sqST44nP6zIEdjZb0opXq6qswE9o9pA==
+  version "1.3.241"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.241.tgz#859dc49ab7f90773ed698767372d384190f60cb1"
+  integrity sha512-Gb9E6nWZlbgjDDNe5cAvMJixtn79krNJ70EDpq/M10lkGo7PGtBUe7Y0CYVHsBScRwi6ybCS+YetXAN9ysAHDg==
 
 elliptic@^6.0.0:
   version "6.5.0"
@@ -2661,10 +2661,10 @@ eslint-plugin-jsx-a11y@^6.2.3:
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
-eslint-plugin-react-hooks@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.0.1.tgz#e898ec26a0a335af6f7b0ad1f0bedda7143ed756"
-  integrity sha512-xir+3KHKo86AasxlCV8AHRtIZPHljqCRRUYgASkbatmt0fad4+5GgC7zkT7o/06hdKM6MIwp8giHVXqBPaarHQ==
+eslint-plugin-react-hooks@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.7.0.tgz#6210b6d5a37205f0b92858f895a4e827020a7d04"
+  integrity sha512-iXTCFcOmlWvw4+TOE8CLWj6yX1GwzT0Y6cUfHHZqWnSk144VmVIRcVGtUAzrLES7C798lmvnt02C7rxaOX1HNA==
 
 eslint-plugin-react@^7.14.3:
   version "7.14.3"
@@ -3910,7 +3910,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.4, lodash@^4.17.5:
+lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -5675,9 +5675,9 @@ regex-not@^1.0.0, regex-not@^1.0.2:
     safe-regex "^1.1.0"
 
 regexp-tree@^0.1.6:
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.11.tgz#c9c7f00fcf722e0a56c7390983a7a63dd6c272f3"
-  integrity sha512-7/l/DgapVVDzZobwMCCgMlqiqyLFJ0cduo/j+3BcDJIB+yJdsYCfKuI3l/04NV+H/rfNRdPIDbXNZHM9XvQatg==
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.12.tgz#28eaaa6e66eeb3527c15108a3ff740d9e574e420"
+  integrity sha512-TsXZ8+cv2uxMEkLfgwO0E068gsNMLfuYwMMhiUxf0Kw2Vcgzq93vgl6wIlIYuPmfMqMjfQ9zAporiozqCnwLuQ==
 
 regexpp@^2.0.1:
   version "2.0.1"
@@ -6721,11 +6721,11 @@ webpack-log@^2.0.0:
     uuid "^3.3.2"
 
 webpack-merge@^4.1.0:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-4.2.1.tgz#5e923cf802ea2ace4fd5af1d3247368a633489b4"
-  integrity sha512-4p8WQyS98bUJcCvFMbdGZyZmsKuWjWVnVHnAS3FFg0HDaRVrPbkivx2RYCre8UiemD67RsiFFLfn4JhLAin8Vw==
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-4.2.2.tgz#a27c52ea783d1398afd2087f547d7b9d2f43634d"
+  integrity sha512-TUE1UGoTX2Cd42j3krGYqObZbOD+xF7u28WB7tfUordytSjbWTIjK/8V0amkBfTYN4/pB/GIDlJZZ657BGG19g==
   dependencies:
-    lodash "^4.17.5"
+    lodash "^4.17.15"
 
 webpack-sources@1.3.0:
   version "1.3.0"
