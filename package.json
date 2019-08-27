@@ -32,6 +32,9 @@
     "postcss-color-function": "^4.1.0",
     "postcss-nesting": "^7.0.1",
     "postcss-preset-env": "^6.7.0",
-    "styled-jsx-plugin-postcss": "^2.0.1"
+    "styled-jsx-plugin-postcss": "^2.0.1",
+    "styled-jsx-plugin-stylelint": "^0.1.0",
+    "stylelint": "^10.1.0",
+    "stylelint-config-airbnb": "^0.0.0"
   }
 }
