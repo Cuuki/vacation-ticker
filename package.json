@@ -15,23 +15,35 @@
     "react-dom": "^16.9.0",
     "typescript": "3.5.3"
   },
+  "config": {
+    "filePattern": "pages/**/*.{tsx,js,ts}"
+  },
   "scripts": {
-    "dev": "next",
-    "build": "next build",
+    "prettylint": "prettier --check $npm_package_config_filePattern",
+    "tslint": "tsc --noEmit",
+    "eslint": "./node_modules/.bin/eslint $npm_package_config_filePattern --quiet",
+    "lint": "yarn prettylint && yarn tslint && yarn eslint",
+    "dev": "yarn lint && next",
+    "build": "yarn lint && next build",
     "start": "next start"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
     "cssnano": "^4.1.10",
     "eslint": "^6.2.2",
     "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "postcss": "^7.0.17",
     "postcss-color-function": "^4.1.0",
     "postcss-nesting": "^7.0.1",
     "postcss-preset-env": "^6.7.0",
+    "prettier": "^1.18.2",
     "styled-jsx-plugin-postcss": "^2.0.1",
     "styled-jsx-plugin-stylelint": "^0.1.0",
     "stylelint": "^10.1.0",
