@@ -19,13 +19,16 @@
     "typescript": "3.5.3"
   },
   "config": {
+    "eslintBin": "./node_modules/.bin/eslint",
+    "stylelintBin": "./node_modules/.bin/stylelint",
     "filePattern": "pages/**/*.{tsx,js,ts}"
   },
   "scripts": {
-    "prettylint": "prettier --check $npm_package_config_filePattern",
-    "tslint": "tsc --noEmit",
-    "eslint": "./node_modules/.bin/eslint $npm_package_config_filePattern --quiet",
-    "lint": "yarn prettylint && yarn tslint && yarn eslint",
+    "lint:pretty": "prettier --check $npm_package_config_filePattern",
+    "lint:css": "$npm_package_config_stylelintBin $npm_package_config_filePattern",
+    "lint:ts": "tsc --noEmit",
+    "lint:js": "$npm_package_config_eslintBin $npm_package_config_filePattern --quiet",
+    "lint": "yarn lint:pretty && yarn lint:css && yarn lint:ts && yarn lint:js",
     "dev": "yarn lint && next",
     "build": "yarn lint && next build",
     "start": "next start"
@@ -46,6 +49,8 @@
     "stylelint": "^10.1.0",
     "stylelint-config-prettier": "^5.2.0",
     "stylelint-config-recommended": "^2.2.0",
-    "stylelint-config-standard": "^18.3.0"
+    "stylelint-config-standard": "^18.3.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.8.0"
   }
 }
