@@ -3,12 +3,23 @@ import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  background: transparent;
-  border-radius: 3px;
-  border: 2px solid palevioletred;
+  display: flex;
+  margin: 0.5em 0.011em;
+  padding: 0.25em 1em 0;
   color: color(#5cb289 tint(50%));
-  margin: 0.5em 0.01em;
-  padding: 0.25em 1em;
+  font-weight: 700;
+  font-family: sans-serif, serif;
+  background: transparent;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 3px;
+  content: url('');
+
+  @media Screen and (max-width >= 960px) {
+    background: rgb(255, 255, 0);
+  }
+  &:before {
+    content: '';
+  }
 `;
 
 const Container = styled.div`
