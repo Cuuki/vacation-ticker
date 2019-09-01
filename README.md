@@ -39,6 +39,10 @@ Your app is ready to be deployed!
 
 Starts next.js server for dynamic rendering.
 
+### `yarn lint`
+
+Start main linting task with prettier, stylelint, typescript lint and eslint. This is run before all other main tasks to enforce code conventions.
+
 ---
 
 ## Deployment

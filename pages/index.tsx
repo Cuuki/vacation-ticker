@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
+import {lighten} from 'polished';
 
 const StyledButton = styled.button`
   display: flex;
@@ -9,7 +10,7 @@ const StyledButton = styled.button`
   color: color(#5cb289 tint(50%));
   font-weight: 700;
   font-family: sans-serif, serif;
-  background: transparent;
+  background: ${lighten(0.2, '#CCCD64')};
   border: 2px solid rgb(0, 0, 0);
   border-radius: 3px;
   content: url('');

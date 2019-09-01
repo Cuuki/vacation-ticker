@@ -13,6 +13,7 @@
     "@types/react-dom": "16.9.0",
     "@types/styled-components": "^4.1.18",
     "next": "^9.0.5",
+    "polished": "^3.4.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "styled-components": "^4.3.2",
@@ -31,11 +32,12 @@
     "lint": "yarn lint:pretty && yarn lint:css && yarn lint:ts && yarn lint:js",
     "dev": "yarn lint && next",
     "build": "yarn lint && next build",
-    "start": "next start"
+    "start": "yarn lint && next start"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
+    "babel-plugin-polished": "^1.1.0",
     "babel-plugin-styled-components": "^1.10.6",
     "eslint": "^6.2.2",
     "eslint-config-airbnb": "^18.0.1",
