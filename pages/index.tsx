@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
 const StyledButton = styled.button`
   background: transparent;
@@ -9,13 +9,6 @@ const StyledButton = styled.button`
   color: color(#5cb289 tint(50%));
   margin: 0.5em 1em;
   padding: 0.25em 1em;
-
-  ${props =>
-    props.primary &&
-    css`
-      background: palevioletred;
-      color: white;
-    `}
 `;
 
 const Container = styled.div`
@@ -33,7 +26,6 @@ const Index = () => {
       </Button>
       <Container>
         <StyledButton>Normal Button</StyledButton>
-        <StyledButton primary>Primary Button</StyledButton>
       </Container>
     </div>
   );
