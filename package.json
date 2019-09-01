@@ -7,25 +7,52 @@
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.3.3",
+    "@material-ui/icons": "^4.2.1",
     "@types/node": "^12.7.2",
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
+    "@types/styled-components": "^4.1.18",
     "next": "^9.0.5",
+    "polished": "^3.4.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "styled-components": "^4.3.2",
     "typescript": "3.5.3"
   },
+  "config": {
+    "eslintBin": "./node_modules/.bin/eslint",
+    "stylelintBin": "./node_modules/.bin/stylelint",
+    "filePattern": "pages/**/*.{tsx,js,ts}"
+  },
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "lint:pretty": "prettier --check $npm_package_config_filePattern",
+    "lint:css": "$npm_package_config_stylelintBin $npm_package_config_filePattern",
+    "lint:ts": "tsc --noEmit",
+    "lint:js": "$npm_package_config_eslintBin $npm_package_config_filePattern --quiet",
+    "lint": "yarn lint:pretty && yarn lint:css && yarn lint:ts && yarn lint:js",
+    "dev": "yarn lint && next",
+    "build": "yarn lint && next build",
+    "start": "yarn lint && next start"
   },
   "devDependencies": {
-    "cssnano": "^4.1.10",
-    "postcss": "^7.0.17",
-    "postcss-color-function": "^4.1.0",
-    "postcss-nesting": "^7.0.1",
-    "postcss-preset-env": "^6.7.0",
-    "styled-jsx-plugin-postcss": "^2.0.1"
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "babel-plugin-polished": "^1.1.0",
+    "babel-plugin-styled-components": "^1.10.6",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "prettier": "^1.18.2",
+    "stylelint": "^10.1.0",
+    "stylelint-config-prettier": "^5.2.0",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-recommended": "^2.2.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.8.0"
   }
 }

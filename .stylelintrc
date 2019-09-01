@@ -1,0 +1,54 @@
+{
+  "processors": ["stylelint-processor-styled-components"],
+  "extends": [
+    "stylelint-config-recommended",
+    "stylelint-config-rational-order",
+    "stylelint-config-styled-components",
+    "stylelint-config-prettier"
+  ],
+
+  "rules": {
+    "selector-pseudo-class-case": "lower",
+    "selector-attribute-quotes": "always",
+    "selector-no-vendor-prefix": true,
+
+    "declaration-colon-space-before": "never",
+    "declaration-colon-space-after": "always",
+    "declaration-no-important": true,
+
+    "at-rule-name-case": "lower",
+    "at-rule-no-vendor-prefix": true,
+    "at-rule-semicolon-newline-after": "always",
+    "at-rule-semicolon-space-before": "never",
+
+    "media-feature-name-case": "lower",
+    "media-feature-name-no-vendor-prefix": true,
+    "media-feature-range-operator-space-after": "always",
+    "media-feature-range-operator-space-before": "always",
+
+    "property-case": "lower",
+    "property-no-vendor-prefix": true,
+    "shorthand-property-no-redundant-values": true,
+
+    "function-calc-no-unspaced-operator": true,
+    "function-comma-space-before": "never",
+    "function-comma-space-after": "always",
+    "function-name-case": "lower",
+    "function-url-quotes": "always",
+
+    "no-eol-whitespace": true,
+    "no-extra-semicolons": true,
+
+    "font-family-name-quotes": "always-where-required",
+    "font-family-no-duplicate-names": true,
+    "font-weight-notation": "numeric",
+
+    "color-named": "never",
+    "color-no-hex": true,
+
+    "number-max-precision": 3,
+    "number-no-trailing-zeros": true,
+    "length-zero-no-unit": true,
+    "unit-case": "lower"
+  }
+}
