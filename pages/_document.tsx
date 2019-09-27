@@ -61,15 +61,8 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Work+Sans:400,700&display=swap"
             rel="stylesheet"
           />
-          <style jsx global>{`
-            body,
-            html,
-            #__next {
-              width: 100%;
-              height: 100%;
-            }
-          `}</style>
         </Head>
+
         <body>
           <Main />
           <NextScript />
