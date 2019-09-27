@@ -6,20 +6,18 @@
   "author": "Patrick Söllner <mail@patrick-soellner.de>",
   "license": "MIT",
   "config": {
-    "eslintBin": "./node_modules/.bin/eslint",
-    "stylelintBin": "./node_modules/.bin/stylelint",
-    "filePattern": "{pages,components,src}/*.{tsx,js,ts}"
+    "files": "{pages,components,src}/*.{tsx,js,ts}"
   },
   "scripts": {
     "postinstall": "yarn autoclean --force",
-    "lint:pretty": "prettier --check $npm_package_config_filePattern",
-    "lint:css": "$npm_package_config_stylelintBin $npm_package_config_filePattern",
+    "lint:pretty": "prettier --check $npm_package_config_files",
+    "lint:css": "./node_modules/.bin/stylelint $npm_package_config_files",
     "lint:ts": "tsc --noEmit",
-    "lint:js": "$npm_package_config_eslintBin $npm_package_config_filePattern --quiet",
-    "lint": "yarn lint:pretty && yarn lint:css && yarn lint:ts && yarn lint:js",
-    "dev": "yarn lint && next",
-    "build": "yarn lint && next build",
-    "start": "yarn lint && next start"
+    "lint:js": "./node_modules/.bin/eslint $npm_package_config_files --quiet",
+    "lint": " yarn lint:ts && yarn lint:pretty && yarn lint:css && yarn lint:js",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@material-ui/core": "^4.4.3",
@@ -45,6 +43,7 @@
     "eslint": "^6.2.2",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.1.0",
+    "eslint-loader": "^3.0.2",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
