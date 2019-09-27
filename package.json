@@ -5,27 +5,13 @@
   "repository": "https://github.com/Cuuki/vacation-ticker.git",
   "author": "Patrick Söllner <mail@patrick-soellner.de>",
   "license": "MIT",
-  "dependencies": {
-    "@material-ui/core": "^4.3.3",
-    "@material-ui/icons": "^4.2.1",
-    "@material-ui/styles": "^4.4.3",
-    "@types/node": "^12.7.2",
-    "@types/react": "16.9.2",
-    "@types/react-dom": "16.9.0",
-    "@types/styled-components": "^4.1.18",
-    "next": "^9.0.5",
-    "polished": "^3.4.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "styled-components": "^4.3.2",
-    "typescript": "3.5.3"
-  },
   "config": {
     "eslintBin": "./node_modules/.bin/eslint",
     "stylelintBin": "./node_modules/.bin/stylelint",
-    "filePattern": "pages/**/*.{tsx,js,ts}"
+    "filePattern": "{pages,components,src}/*.{tsx,js,ts}"
   },
   "scripts": {
+    "postinstall": "yarn autoclean --force",
     "lint:pretty": "prettier --check $npm_package_config_filePattern",
     "lint:css": "$npm_package_config_stylelintBin $npm_package_config_filePattern",
     "lint:ts": "tsc --noEmit",
@@ -34,6 +20,22 @@
     "dev": "yarn lint && next",
     "build": "yarn lint && next build",
     "start": "yarn lint && next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.4.3",
+    "@material-ui/icons": "^4.4.3",
+    "@material-ui/styles": "^4.4.3",
+    "@types/node": "^12.7.2",
+    "@types/react": "16.9.2",
+    "@types/react-dom": "16.9.0",
+    "@types/styled-components": "^4.1.18",
+    "next": "^9.0.6",
+    "polished": "^3.4.1",
+    "prop-types": "^15.7.2",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "styled-components": "^4.3.2",
+    "typescript": "3.5.3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.0.0",

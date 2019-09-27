@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -10,28 +11,42 @@ interface LayoutProps {
   children: any;
 }
 
-const Layout: React.FC<LayoutProps> = props => (
-  <>
-    <Head>
-      <title>{props.title}</title>
-    </Head>
+const layoutPropTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
 
-    <Box
-      display="flex"
-      flexDirection="column"
-      justifyContent="space-between"
-      height="100%"
-      component="main"
-      role="main">
-      <Header />
+const Layout: React.FC<LayoutProps> = props => {
+  const {title, children} = props;
 
-      <section className="SiteContent">
-        <Container maxWidth="md">{props.children}</Container>
-      </section>
+  return (
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
 
-      <Footer />
-    </Box>
-  </>
-);
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+        height="100%"
+        component="main"
+        role="main">
+        <Header />
+
+        <section className="SiteContent">
+          <Container maxWidth="md">{children}</Container>
+        </section>
+
+        <Footer />
+      </Box>
+    </>
+  );
+};
+
+Layout.propTypes = layoutPropTypes;
 
 export default Layout;
