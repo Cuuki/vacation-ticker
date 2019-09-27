@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 
 const Index = () => {
   return (
-    <Layout>
+    <Layout title="Vacation Ticker">
       <h1>
         <span>Vacation ticker</span>
       </h1>

@@ -1,6 +1,5 @@
 import React from 'react';
-import App, {Container} from 'next/app';
-import Head from 'next/head';
+import App from 'next/app';
 import {ThemeProvider} from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
@@ -18,16 +17,10 @@ class MyApp extends App {
     const {Component, pageProps} = this.props;
 
     return (
-      <Container>
-        <Head>
-          <title>Vacation Ticker</title>
-        </Head>
-
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </Container>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
     );
   }
 }
