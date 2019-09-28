@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Header from '@components/Header';
 import Main from '@components/Main';
 import Footer from '@components/Footer';
-import LayoutStyle from '@styles/layout';
+import GlobalStyle from '@styles/global';
 
 interface LayoutProps {
   title: string;
@@ -34,7 +34,7 @@ const Layout: React.FC<LayoutProps> = props => {
 
       <Footer brandName={title} />
 
-      <LayoutStyle />
+      <GlobalStyle />
     </>
   );
 };

@@ -1,4 +1,5 @@
 import {createGlobalStyle} from 'styled-components';
+import {bodyColor} from '@utils/theme';
 
 const LayoutStyle = createGlobalStyle`
     body,
@@ -8,14 +9,14 @@ const LayoutStyle = createGlobalStyle`
       height: 100%;
     }
 
+    body {
+      background-color: ${bodyColor};
+    }
+
     #__next {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-    }
-
-    [hidden] {
-      display: none !important;
     }
 `;
 

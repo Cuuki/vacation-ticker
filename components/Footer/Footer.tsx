@@ -7,7 +7,7 @@ import FooterCopyright from '@components/Footer/FooterCopyright';
 
 const Footer: React.FC<FooterProps> = props => {
   const {brandName} = props;
-  const boxAtts = {
+  const boxProps = {
     display: 'flex',
     alignItems: 'center',
   };
@@ -20,7 +20,7 @@ const Footer: React.FC<FooterProps> = props => {
         position="static"
         color="secondary">
         <Container maxWidth="md">
-          <Box {...boxAtts} justifyContent="space-between" py={2.5}>
+          <Box {...boxProps} justifyContent="space-between" py={2.5}>
             <FooterBrand />
             <Box ml={2} textAlign="right">
               <FooterCopyright brandName={brandName} />

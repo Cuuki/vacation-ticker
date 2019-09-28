@@ -1,6 +1,7 @@
 import React from 'react';
 import App from 'next/app';
-import {ThemeProvider} from '@material-ui/styles';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import StylesProvider from '@material-ui/styles/StylesProvider';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '@utils/theme';
 
@@ -18,8 +19,10 @@ class MyApp extends App {
 
     return (
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
+        <StylesProvider injectFirst>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </StylesProvider>
       </ThemeProvider>
     );
   }

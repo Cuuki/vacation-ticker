@@ -7,7 +7,7 @@ import DarkModeToggle from '@components/UI/DarkModeToggle';
 
 const Header: React.FC<HeaderProps> = props => {
   const {brandName} = props;
-  const boxAtts = {
+  const boxProps = {
     display: 'flex',
     alignItems: 'center',
   };
@@ -20,11 +20,11 @@ const Header: React.FC<HeaderProps> = props => {
         position="sticky"
         color="primary">
         <Container maxWidth="md">
-          <Box {...boxAtts} justifyContent="space-between" py={2.5}>
-            <Box {...boxAtts} mr={2}>
+          <Box {...boxProps} justifyContent="space-between" py={2.5}>
+            <Box {...boxProps} mr={2}>
               <HeaderBrand brandName={brandName} />
             </Box>
-            <Box {...boxAtts} justifyContent="flex-end">
+            <Box {...boxProps} justifyContent="flex-end">
               <DarkModeToggle edge="end" />
             </Box>
           </Box>
