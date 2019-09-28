@@ -13,7 +13,7 @@
     },
     "import/resolver": {
       "node": {
-        "paths": ["src", "components", "pages"],
+        "paths": ["components", "pages", "utils", "styles"],
         "extensions": [".ts", ".tsx"]
       }
     }

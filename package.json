@@ -6,7 +6,7 @@
   "author": "Patrick Söllner <mail@patrick-soellner.de>",
   "license": "MIT",
   "config": {
-    "files": "{pages,components,src}/*.{tsx,js,ts}"
+    "files": "{pages,components,utils,styles}/*.{tsx,js,ts}"
   },
   "scripts": {
     "postinstall": "yarn autoclean --force",

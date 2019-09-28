@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import {createGlobalStyle} from 'styled-components';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Header from './Header';
@@ -22,14 +21,6 @@ const layoutPropTypes = {
 
 const Layout: React.FC<LayoutProps> = props => {
   const {title, children} = props;
-  const GlobalStyle = createGlobalStyle`
-    body,
-    html,
-    #__next {
-      width: 100%;
-      height: 100%;
-    }
-  `;
 
   return (
     <>
@@ -52,8 +43,6 @@ const Layout: React.FC<LayoutProps> = props => {
 
         <Footer brandName={title} />
       </Box>
-
-      <GlobalStyle />
     </>
   );
 };
