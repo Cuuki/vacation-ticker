@@ -1,9 +1,15 @@
 import {HeaderProps, headerPropTypes} from '@components/Header/types';
+import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import HeaderBrand from '@components/Header/HeaderBrand';
 import DarkModeToggle from '@components/UI/DarkModeToggle';
+import theme from '@utils/theme';
+
+const StyledAppBar = styled(AppBar)`
+  margin-bottom: ${theme.spacing(3)}px;
+`;
 
 const Header: React.FC<HeaderProps> = props => {
   const {brandName} = props;
@@ -14,7 +20,7 @@ const Header: React.FC<HeaderProps> = props => {
 
   return (
     <>
-      <AppBar
+      <StyledAppBar
         component="header"
         className="SiteHeader"
         position="sticky"
@@ -29,7 +35,7 @@ const Header: React.FC<HeaderProps> = props => {
             </Box>
           </Box>
         </Container>
-      </AppBar>
+      </StyledAppBar>
     </>
   );
 };
