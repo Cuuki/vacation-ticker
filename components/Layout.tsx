@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
 import Header from './Header';
+import Main from './Main';
 import Footer from './Footer';
+import LayoutStyle from '../styles/layout';
 
 interface LayoutProps {
   title: string;
@@ -28,21 +28,13 @@ const Layout: React.FC<LayoutProps> = props => {
         <title>{title}</title>
       </Head>
 
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
-        height="100%"
-        component="main"
-        role="main">
-        <Header brandName={title} />
+      <Header brandName={title} />
 
-        <section className="SiteContent">
-          <Container maxWidth="md">{children}</Container>
-        </section>
+      <Main>{children}</Main>
 
-        <Footer brandName={title} />
-      </Box>
+      <Footer brandName={title} />
+
+      <LayoutStyle />
     </>
   );
 };
