@@ -18,7 +18,7 @@ const Main: React.FC<MainProps> = props => {
 
   return (
     <>
-      <Box display="flex" flexDirection="column" component="main" role="main">
+      <Box component="main" role="main">
         <Container maxWidth="md">{children}</Container>
       </Box>
     </>

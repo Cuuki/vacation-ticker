@@ -17,6 +17,7 @@ const LayoutStyle = createGlobalStyle`
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      overflow-x: hidden;
     }
 `;
 
