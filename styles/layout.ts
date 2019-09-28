@@ -13,6 +13,10 @@ const LayoutStyle = createGlobalStyle`
       flex-direction: column;
       justify-content: space-between;
     }
+
+    [hidden] {
+      display: none !important;
+    }
 `;
 
 export default LayoutStyle;
