@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = props => {
         position="sticky"
         color="primary">
         <Container maxWidth="md">
-          <Box {...boxAtts} justifyContent="space-between" py={3}>
+          <Box {...boxAtts} justifyContent="space-between" py={2.5}>
             <Box {...boxAtts} mr={2}>
               <HeaderBrand brandName={brandName} />
             </Box>
