@@ -44,7 +44,7 @@ const Layout: React.FC<LayoutProps> = props => {
         height="100%"
         component="main"
         role="main">
-        <Header />
+        <Header brandName={title} />
 
         <section className="SiteContent">
           <Container maxWidth="md">{children}</Container>
