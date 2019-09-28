@@ -5,13 +5,14 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 
 type Mode = 'dark' | 'light';
+type Label = 'dark mode' | 'light mode';
 
 interface ToggleProps {
   edge?: false | 'end' | 'start';
 }
 
 interface ToggleState {
-  label: 'dark mode' | 'light mode';
+  label: Label;
   mode: Mode;
 }
 
@@ -31,15 +32,19 @@ class DarkModeToggle extends React.Component<ToggleProps, ToggleState> {
     this.setState(prevState => {
       const {mode} = prevState;
       let newMode: Mode;
+      let newLabel: Label;
 
       if (mode === 'light') {
         newMode = 'dark';
+        newLabel = 'light mode';
       } else {
         newMode = 'light';
+        newLabel = 'dark mode';
       }
 
       return {
         mode: newMode,
+        label: newLabel,
       };
     });
   }
