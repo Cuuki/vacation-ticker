@@ -1,19 +1,4 @@
 {
-  "env": {
-    "browser": true,
-    "es6": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "airbnb",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended",
-    "prettier",
-    "prettier/react"
-  ],
-  "plugins": ["react"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -22,6 +7,18 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "babel-module": {
+        "paths": ["@components", "@styles", "@utils"],
+        "extensions": [".ts", ".tsx"]
+      }
+    }
+  },
+  "plugins": ["react", "@typescript-eslint", "import"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly",
@@ -34,13 +31,26 @@
     "Blob": true,
     "navigator": true
   },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "airbnb",
+    "prettier/@typescript-eslint",
+    "prettier/react",
+    "plugin:prettier/recommended"
+  ],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": [1, {"extensions": [".ts", ".tsx"]}]
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+    "react/jsx-filename-extension": [2, {"extensions": [".ts", ".tsx"]}],
+    "react/jsx-props-no-spreading": "off"
   }
 }
