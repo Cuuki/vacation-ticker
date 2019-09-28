@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import Header from './Header';
-import Main from './Main';
-import Footer from './Footer';
-import LayoutStyle from '../styles/layout';
+import Header from '@components/Header';
+import Main from '@components/Main';
+import Footer from '@components/Footer';
+import LayoutStyle from '@styles/layout';
 
 interface LayoutProps {
   title: string;

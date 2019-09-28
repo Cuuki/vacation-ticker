@@ -12,8 +12,8 @@
       "version": "detect"
     },
     "import/resolver": {
-      "node": {
-        "paths": ["components", "pages", "utils", "styles"],
+      "babel-module": {
+        "paths": ["@components", "@styles", "@utils"],
         "extensions": [".ts", ".tsx"]
       }
     }
