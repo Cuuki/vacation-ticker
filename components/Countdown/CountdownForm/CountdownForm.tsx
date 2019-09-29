@@ -24,10 +24,19 @@ const CountdownForm: React.FC<FormProps> = props => {
     formatTime,
     submitHandler,
   } = props;
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  // TODO: pass min date and default date from container and use in validation
+  const minDate = new Date().setDate(new Date().getDate() + 1);
+  const defaultDate = new Date(
+    new Date().setFullYear(new Date().getFullYear() + 1)
+  );
+  const [selectedDate, setSelectedDate] = React.useState(defaultDate);
+  const [selectedTime, setSelectedTime] = React.useState(defaultDate);
 
   const handleDateChange = date => {
     setSelectedDate(date);
+  };
+  const handleTimeChange = time => {
+    setSelectedTime(time);
   };
 
   return (
@@ -40,22 +49,25 @@ const CountdownForm: React.FC<FormProps> = props => {
             format={formatDate}
             value={selectedDate}
             name={inputNameDate}
+            required
             fullWidth
             inputVariant="outlined"
             onChange={handleDateChange}
+            minDate={minDate}
+            minDateMessage="Date should be after tomorrow"
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
           />
           <KeyboardTimePicker
             margin="normal"
-            label="Time picker"
+            label="Time picker (Optional)"
             format={formatTime}
-            value={selectedDate}
+            value={selectedTime}
             name={inputNameTime}
             fullWidth
             inputVariant="outlined"
-            onChange={handleDateChange}
+            onChange={handleTimeChange}
             KeyboardButtonProps={{
               'aria-label': 'change time',
             }}
