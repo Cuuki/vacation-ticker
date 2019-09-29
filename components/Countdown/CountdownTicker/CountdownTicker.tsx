@@ -1,8 +1,16 @@
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-const CountdownTicker: React.FC = () => {
+interface TickerProps {
+  startDate: boolean | Date;
+}
+
+const CountdownTicker: React.FC<TickerProps> = props => {
+  const {startDate} = props;
+  console.log(startDate);
+
   return (
     <>
       <Box mb={3} fontFamily="Monospace">
@@ -30,6 +38,14 @@ const CountdownTicker: React.FC = () => {
       </Button>
     </>
   );
+};
+
+CountdownTicker.defaultProps = {
+  startDate: false,
+};
+
+CountdownTicker.propTypes = {
+  startDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.instanceOf(Date)]),
 };
 
 export default CountdownTicker;

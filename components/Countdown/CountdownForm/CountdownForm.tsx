@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -7,7 +8,22 @@ import {
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
 
-const CountdownForm: React.FC = () => {
+interface FormProps {
+  inputNameDate: string;
+  inputNameTime: string;
+  formatDate: string;
+  formatTime: string;
+  submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+const CountdownForm: React.FC<FormProps> = props => {
+  const {
+    inputNameDate,
+    inputNameTime,
+    formatDate,
+    formatTime,
+    submitHandler,
+  } = props;
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = date => {
@@ -17,12 +33,13 @@ const CountdownForm: React.FC = () => {
   return (
     <>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <form>
+        <form onSubmit={submitHandler}>
           <KeyboardDatePicker
             margin="normal"
             label="Date picker dialog"
-            format="MM/dd/yyyy"
+            format={formatDate}
             value={selectedDate}
+            name={inputNameDate}
             fullWidth
             inputVariant="outlined"
             onChange={handleDateChange}
@@ -33,7 +50,9 @@ const CountdownForm: React.FC = () => {
           <KeyboardTimePicker
             margin="normal"
             label="Time picker"
+            format={formatTime}
             value={selectedDate}
+            name={inputNameTime}
             fullWidth
             inputVariant="outlined"
             onChange={handleDateChange}
@@ -41,13 +60,26 @@ const CountdownForm: React.FC = () => {
               'aria-label': 'change time',
             }}
           />
-          <Button variant="contained" color="primary" type="submit" fullWidth>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            type="submit"
+            fullWidth>
             Start
           </Button>
         </form>
       </MuiPickersUtilsProvider>
     </>
   );
+};
+
+CountdownForm.propTypes = {
+  inputNameDate: PropTypes.string.isRequired,
+  inputNameTime: PropTypes.string.isRequired,
+  formatDate: PropTypes.string.isRequired,
+  formatTime: PropTypes.string.isRequired,
+  submitHandler: PropTypes.func.isRequired,
 };
 
 export default CountdownForm;
