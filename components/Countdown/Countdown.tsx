@@ -53,7 +53,7 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
       let date = dateInput.getAttribute('value');
       let format = dateFormat;
 
-      if (timeInput) {
+      if (timeInput && timeInput.getAttribute('value')) {
         format = `${dateFormat} ${timeFormat}`;
         date = `${date} ${timeInput.getAttribute('value')}`;
       }
