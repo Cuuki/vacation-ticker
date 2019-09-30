@@ -7,6 +7,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
+import {addYearsToDate} from '@utils/date';
 
 interface FormProps {
   inputNameDate: string;
@@ -24,11 +25,11 @@ const CountdownForm: React.FC<FormProps> = props => {
     formatTime,
     submitHandler,
   } = props;
-  // TODO: pass min date and default date from container and use in validation
-  const minDate = new Date().setDate(new Date().getDate() + 1);
-  const defaultDate = new Date(
-    new Date().setFullYear(new Date().getFullYear() + 1)
-  );
+
+  const currentDate = new Date();
+  const minDate = currentDate;
+  const defaultDate = addYearsToDate(minDate, 1);
+
   const [selectedDate, setSelectedDate] = React.useState(defaultDate);
   const [selectedTime, setSelectedTime] = React.useState(defaultDate);
 
@@ -44,39 +45,40 @@ const CountdownForm: React.FC<FormProps> = props => {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <form onSubmit={submitHandler}>
           <KeyboardDatePicker
-            margin="normal"
-            label="Date picker dialog"
-            format={formatDate}
+            label="Vacation date"
             value={selectedDate}
             name={inputNameDate}
-            required
-            fullWidth
-            inputVariant="outlined"
-            onChange={handleDateChange}
+            format={formatDate}
             minDate={minDate}
-            minDateMessage="Date should be after tomorrow"
+            minDateMessage="Date should be in the future"
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
+            onChange={handleDateChange}
+            required
+            fullWidth
+            margin="normal"
+            inputVariant="outlined"
           />
           <KeyboardTimePicker
-            margin="normal"
-            label="Time picker (Optional)"
-            format={formatTime}
+            label="Vacation time (Optional)"
             value={selectedTime}
             name={inputNameTime}
-            fullWidth
-            inputVariant="outlined"
-            onChange={handleTimeChange}
+            format={formatTime}
             KeyboardButtonProps={{
               'aria-label': 'change time',
             }}
+            onChange={handleTimeChange}
+            invalidDateMessage="Invalid Time Format"
+            fullWidth
+            margin="normal"
+            inputVariant="outlined"
           />
           <Button
+            type="submit"
             variant="contained"
             color="primary"
             size="large"
-            type="submit"
             fullWidth>
             Start
           </Button>
