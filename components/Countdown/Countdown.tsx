@@ -6,14 +6,16 @@ import Typography from '@material-ui/core/Typography';
 import CountdownForm from '@components/Countdown/CountdownForm';
 import CountdownTicker from '@components/Countdown/CountdownTicker';
 import EditableText from '@components/UI/EditableText';
+import DateFnsUtils from '@date-io/date-fns';
 import {getElementByName} from '@utils/element';
-import {getParsedDateFromString} from '@utils/date';
+import {setMidnight} from '@utils/date';
 
 interface CountdownProps {
   dateName?: string;
   timeName?: string;
   dateFormat?: string;
   timeFormat?: string;
+  minDate?: Date;
 }
 
 interface CountdownState {
@@ -25,7 +27,10 @@ type CountdownDefaultProps = {
   timeName: string;
   dateFormat: string;
   timeFormat: string;
+  minDate: Date;
 };
+
+const dateUtils = new DateFnsUtils();
 
 class Countdown extends React.Component<CountdownProps, CountdownState> {
   static defaultProps: CountdownDefaultProps = {
@@ -33,6 +38,7 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
     timeName: 'countdown_time',
     dateFormat: 'dd.MM.yyyy',
     timeFormat: 'HH:mm',
+    minDate: dateUtils.addDays(setMidnight(), 1),
   };
 
   constructor(props) {
@@ -45,27 +51,42 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
     event.preventDefault();
 
     const {dateName, timeName, dateFormat, timeFormat} = this.props;
+    const datetimeFormat = `${dateFormat} ${timeFormat}`;
+
     const form: HTMLElement = event.currentTarget;
     const dateInput: HTMLElement = getElementByName(dateName, form);
     const timeInput: HTMLElement = getElementByName(timeName, form);
 
-    if (dateInput) {
-      let date = dateInput.getAttribute('value');
-      let format = dateFormat;
+    const date = dateInput.getAttribute('value');
+    const time = timeInput.getAttribute('value');
+    let datetime = date;
+    let newStartDate: Date | boolean = false;
 
-      if (timeInput && timeInput.getAttribute('value')) {
-        format = `${dateFormat} ${timeFormat}`;
-        date = `${date} ${timeInput.getAttribute('value')}`;
-      }
-
-      this.setState({
-        startDate: getParsedDateFromString(date, format),
-      });
+    if (dateUtils.isValid(dateUtils.parse(time, timeFormat))) {
+      datetime = `${date} ${time}`;
+    } else {
+      datetime = `${date} ${dateUtils.format(setMidnight(), timeFormat)}`;
     }
+
+    // TODO: figure out why min date check with isBefore doesn't work and ditch aria invalid
+    if (
+      dateUtils.isValid(dateUtils.parse(date, dateFormat)) &&
+      dateInput.getAttribute('aria-invalid') === 'false'
+    ) {
+      newStartDate = dateUtils.parse(datetime, datetimeFormat);
+
+      if (!dateUtils.isValid(newStartDate)) {
+        newStartDate = false;
+      }
+    }
+
+    this.setState({
+      startDate: newStartDate,
+    });
   }
 
   render() {
-    const {dateName, timeName, dateFormat, timeFormat} = this.props;
+    const {dateName, timeName, dateFormat, timeFormat, minDate} = this.props;
     const {startDate} = this.state;
     const boxProps = {
       display: 'flex',
@@ -89,6 +110,7 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
                   inputNameTime={timeName}
                   formatDate={dateFormat}
                   formatTime={timeFormat}
+                  minDate={minDate}
                   submitHandler={this.handleSubmit}
                 />
               </Box>

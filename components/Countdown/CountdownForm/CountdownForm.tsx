@@ -7,13 +7,13 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
-import {addYearsToDate} from '@utils/date';
 
 interface FormProps {
   inputNameDate: string;
   inputNameTime: string;
   formatDate: string;
   formatTime: string;
+  minDate: Date;
   submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
@@ -23,15 +23,12 @@ const CountdownForm: React.FC<FormProps> = props => {
     inputNameTime,
     formatDate,
     formatTime,
+    minDate,
     submitHandler,
   } = props;
 
-  const currentDate = new Date();
-  const minDate = currentDate;
-  const defaultDate = addYearsToDate(minDate, 1);
-
-  const [selectedDate, setSelectedDate] = React.useState(defaultDate);
-  const [selectedTime, setSelectedTime] = React.useState(defaultDate);
+  const [selectedDate, setSelectedDate] = React.useState(minDate);
+  const [selectedTime, setSelectedTime] = React.useState(minDate);
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -74,6 +71,7 @@ const CountdownForm: React.FC<FormProps> = props => {
             margin="normal"
             inputVariant="outlined"
           />
+          {/* TODO: disable button if input is wrong */}
           <Button
             type="submit"
             variant="contained"
@@ -93,6 +91,7 @@ CountdownForm.propTypes = {
   inputNameTime: PropTypes.string.isRequired,
   formatDate: PropTypes.string.isRequired,
   formatTime: PropTypes.string.isRequired,
+  minDate: PropTypes.instanceOf(Date).isRequired,
   submitHandler: PropTypes.func.isRequired,
 };
 
