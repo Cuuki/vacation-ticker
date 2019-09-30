@@ -117,23 +117,25 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
             </Paper>
           </Grid>
 
-          <Grid component="section" item xs={12}>
-            <Paper {...paperAtts}>
-              <Box
-                {...boxProps}
-                component="article"
-                bgcolor="primary.light"
-                color="primary.dark"
-                borderRadius="inherit">
-                <Typography component="h2" variant="h6" gutterBottom>
-                  <EditableText />
-                </Typography>
-                <Typography component="div" variant="body1">
-                  <CountdownTicker startDate={startDate} />
-                </Typography>
-              </Box>
-            </Paper>
-          </Grid>
+          {startDate && (
+            <Grid component="section" item xs={12}>
+              <Paper {...paperAtts}>
+                <Box
+                  {...boxProps}
+                  component="article"
+                  bgcolor="primary.light"
+                  color="primary.dark"
+                  borderRadius="inherit">
+                  <Typography component="h2" variant="h6" gutterBottom>
+                    <EditableText />
+                  </Typography>
+                  <Typography component="div" variant="body1">
+                    <CountdownTicker startDate={startDate} />
+                  </Typography>
+                </Box>
+              </Paper>
+            </Grid>
+          )}
         </Grid>
       </>
     );
