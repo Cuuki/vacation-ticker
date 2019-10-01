@@ -30,9 +30,7 @@ class CountdownTickerContainer extends React.Component<
 
   constructor(props) {
     super(props);
-    this.state = {
-      timeRemaining: this.getTimeRemaining(),
-    };
+    this.state = {timeRemaining: this.getTimeRemaining()};
   }
 
   componentDidMount() {

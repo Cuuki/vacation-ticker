@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+
 import DateFnsUtils from '@date-io/date-fns';
+
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -14,6 +15,11 @@ interface FormProps {
   formatDate: string;
   formatTime: string;
   minDate: Date;
+  selectedDate?: Date;
+  selectedTime?: Date;
+  submitDisabled: boolean;
+  changeDateHandler: (date: Date) => void;
+  changeTimeHandler: (date: Date) => void;
   submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
@@ -24,18 +30,13 @@ const CountdownForm: React.FC<FormProps> = props => {
     formatDate,
     formatTime,
     minDate,
+    selectedDate,
+    selectedTime,
+    submitDisabled,
+    changeDateHandler,
+    changeTimeHandler,
     submitHandler,
   } = props;
-
-  const [selectedDate, setSelectedDate] = React.useState(minDate);
-  const [selectedTime, setSelectedTime] = React.useState(minDate);
-
-  const handleDateChange = date => {
-    setSelectedDate(date);
-  };
-  const handleTimeChange = time => {
-    setSelectedTime(time);
-  };
 
   return (
     <>
@@ -51,7 +52,7 @@ const CountdownForm: React.FC<FormProps> = props => {
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
-            onChange={handleDateChange}
+            onChange={changeDateHandler}
             required
             fullWidth
             margin="normal"
@@ -65,16 +66,16 @@ const CountdownForm: React.FC<FormProps> = props => {
             KeyboardButtonProps={{
               'aria-label': 'change time',
             }}
-            onChange={handleTimeChange}
+            onChange={changeTimeHandler}
             invalidDateMessage="Invalid Time Format"
             fullWidth
             margin="normal"
             inputVariant="outlined"
           />
-          {/* TODO: disable button if input is wrong */}
           <Button
             type="submit"
             variant="contained"
+            disabled={submitDisabled}
             color="primary"
             size="large"
             fullWidth>
@@ -86,12 +87,22 @@ const CountdownForm: React.FC<FormProps> = props => {
   );
 };
 
+CountdownForm.defaultProps = {
+  selectedDate: new Date(),
+  selectedTime: new Date(),
+};
+
 CountdownForm.propTypes = {
   inputNameDate: PropTypes.string.isRequired,
   inputNameTime: PropTypes.string.isRequired,
   formatDate: PropTypes.string.isRequired,
   formatTime: PropTypes.string.isRequired,
   minDate: PropTypes.instanceOf(Date).isRequired,
+  selectedDate: PropTypes.instanceOf(Date),
+  selectedTime: PropTypes.instanceOf(Date),
+  submitDisabled: PropTypes.bool.isRequired,
+  changeDateHandler: PropTypes.func.isRequired,
+  changeTimeHandler: PropTypes.func.isRequired,
   submitHandler: PropTypes.func.isRequired,
 };
 

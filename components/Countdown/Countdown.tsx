@@ -1,4 +1,5 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -10,11 +11,6 @@ import CountdownTicker from '@components/Countdown/CountdownTicker';
 import EditableText from '@components/UI/EditableText';
 
 import addDays from 'date-fns/addDays';
-import parse from 'date-fns/parse';
-import isValid from 'date-fns/isValid';
-import format from 'date-fns/format';
-
-import {getElementByName} from '@utils/element';
 import {setMidnight} from '@utils/date';
 
 interface CountdownProps {
@@ -23,148 +19,105 @@ interface CountdownProps {
   dateFormat?: string;
   timeFormat?: string;
   minDate?: Date;
-}
-
-interface CountdownState {
   startDate: boolean | Date;
+  submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
+  clearHandler: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
-type CountdownDefaultProps = {
-  dateName: string;
-  timeName: string;
-  dateFormat: string;
-  timeFormat: string;
-  minDate: Date;
-};
+const Countdown: React.FC<CountdownProps> = props => {
+  const {
+    dateName,
+    timeName,
+    dateFormat,
+    timeFormat,
+    minDate,
+    startDate,
+    submitHandler,
+    clearHandler,
+  } = props;
 
-class Countdown extends React.Component<CountdownProps, CountdownState> {
-  static defaultProps: CountdownDefaultProps = {
-    dateName: 'countdown_date',
-    timeName: 'countdown_time',
-    dateFormat: 'dd.MM.yyyy',
-    timeFormat: 'HH:mm',
-    minDate: addDays(setMidnight(), 1),
+  const boxProps = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    p: 4.5,
+  };
+  const paperAtts = {
+    elevation: 2,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {startDate: false};
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClear = this.handleClear.bind(this);
-  }
+  return (
+    <>
+      <Grid container spacing={6}>
+        <Grid component="section" item xs={12}>
+          <Paper {...paperAtts}>
+            <Box {...boxProps}>
+              <CountdownForm
+                inputNameDate={dateName}
+                inputNameTime={timeName}
+                formatDate={dateFormat}
+                formatTime={timeFormat}
+                minDate={minDate}
+                submitHandler={submitHandler}
+              />
+            </Box>
+          </Paper>
+        </Grid>
 
-  handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
-    event.preventDefault();
-
-    const {dateName, timeName, dateFormat, timeFormat} = this.props;
-    const datetimeFormat = `${dateFormat} ${timeFormat}`;
-
-    const form: HTMLElement = event.currentTarget;
-    const dateInput: HTMLElement = getElementByName(dateName, form);
-    const timeInput: HTMLElement = getElementByName(timeName, form);
-
-    const date = dateInput.getAttribute('value');
-    const time = timeInput.getAttribute('value');
-    let datetime = date;
-    let newStartDate: Date | boolean = false;
-
-    if (isValid(parse(time, timeFormat, new Date()))) {
-      datetime = `${date} ${time}`;
-    } else {
-      datetime = `${date} ${format(setMidnight(), timeFormat)}`;
-    }
-
-    // TODO: figure out why min date check with isBefore doesn't work and ditch aria invalid
-    if (
-      isValid(parse(date, dateFormat, new Date())) &&
-      dateInput.getAttribute('aria-invalid') === 'false'
-    ) {
-      newStartDate = parse(datetime, datetimeFormat, new Date());
-
-      if (!isValid(newStartDate)) {
-        newStartDate = false;
-      }
-    }
-
-    this.setState({
-      startDate: newStartDate,
-    });
-  }
-
-  handleClear(event: React.MouseEvent<HTMLElement>): void {
-    event.preventDefault();
-
-    this.setState({
-      startDate: false,
-    });
-  }
-
-  render() {
-    const {dateName, timeName, dateFormat, timeFormat, minDate} = this.props;
-    const {startDate} = this.state;
-    const boxProps = {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      p: 4.5,
-    };
-    const paperAtts = {
-      elevation: 2,
-    };
-
-    return (
-      <>
-        <Grid container spacing={6}>
+        {startDate && (
           <Grid component="section" item xs={12}>
             <Paper {...paperAtts}>
-              <Box {...boxProps}>
-                <CountdownForm
-                  inputNameDate={dateName}
-                  inputNameTime={timeName}
-                  formatDate={dateFormat}
-                  formatTime={timeFormat}
-                  minDate={minDate}
-                  submitHandler={this.handleSubmit}
-                />
+              <Box
+                {...boxProps}
+                component="article"
+                bgcolor="secondary.light"
+                color="secondary.dark"
+                borderRadius="inherit">
+                <Typography
+                  component="h2"
+                  variant="h6"
+                  color="primary"
+                  gutterBottom>
+                  <EditableText />
+                </Typography>
+                <Typography component="div" variant="body1" gutterBottom>
+                  <CountdownTicker startDate={startDate} />
+                </Typography>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  color="primary"
+                  onClick={clearHandler}>
+                  Clear
+                </Button>
               </Box>
             </Paper>
           </Grid>
+        )}
+      </Grid>
+    </>
+  );
+};
 
-          {startDate && (
-            <Grid component="section" item xs={12}>
-              <Paper {...paperAtts}>
-                <Box
-                  {...boxProps}
-                  component="article"
-                  bgcolor="secondary.light"
-                  color="secondary.dark"
-                  borderRadius="inherit">
-                  <Typography
-                    component="h2"
-                    variant="h6"
-                    color="primary"
-                    gutterBottom>
-                    <EditableText />
-                  </Typography>
-                  <Typography component="div" variant="body1" gutterBottom>
-                    <CountdownTicker startDate={startDate} />
-                  </Typography>
-                  <Button
-                    variant="outlined"
-                    size="large"
-                    color="primary"
-                    onClick={this.handleClear}>
-                    Clear
-                  </Button>
-                </Box>
-              </Paper>
-            </Grid>
-          )}
-        </Grid>
-      </>
-    );
-  }
-}
+Countdown.defaultProps = {
+  dateName: 'countdown_date',
+  timeName: 'countdown_time',
+  dateFormat: 'dd.MM.yyyy',
+  timeFormat: 'HH:mm',
+  minDate: addDays(setMidnight(), 1),
+};
+
+Countdown.propTypes = {
+  dateName: PropTypes.string,
+  timeName: PropTypes.string,
+  dateFormat: PropTypes.string,
+  timeFormat: PropTypes.string,
+  minDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.instanceOf(Date)])
+    .isRequired,
+  submitHandler: PropTypes.func.isRequired,
+  clearHandler: PropTypes.func.isRequired,
+};
 
 export default Countdown;
