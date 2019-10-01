@@ -7,13 +7,13 @@ export const setMidnight = (date = new Date()): Date => {
   return setHours(setMinutes(setSeconds(date, 0), 0), 0);
 };
 
-export interface TimeRemainingObject {
+export interface TimeUntilObject {
   seconds: number;
   minutes: number;
   hours: number;
   days: number;
 }
-export const getTimeRemainingUntil = (endDate: Date): TimeRemainingObject => {
+export const getTimeUntilObject = (endDate: Date): TimeUntilObject => {
   const total = differenceInSeconds(endDate, new Date());
   const seconds = Math.floor(total % 60);
   const minutes = Math.floor((total / 60) % 60);
