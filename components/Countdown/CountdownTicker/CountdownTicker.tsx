@@ -1,51 +1,71 @@
 import PropTypes from 'prop-types';
+
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+
+import {formatNumberToLength} from '@utils/format';
 
 interface TickerProps {
-  startDate: boolean | Date;
+  displayDates: {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+  };
 }
 
 const CountdownTicker: React.FC<TickerProps> = props => {
-  const {startDate} = props;
-  console.log(startDate);
+  const {displayDates} = props;
+  const highestLength = Math.max(...Object.values(displayDates)).toString()
+    .length;
 
   return (
     <>
       <Box mb={3} fontFamily="Monospace">
-        <Typography component="p" variant="body2" gutterBottom>
-          00 Years
-        </Typography>
-        <Typography component="p" variant="body2" gutterBottom>
-          00 Months
-        </Typography>
-        <Typography component="p" variant="body2" gutterBottom>
-          00 Days
-        </Typography>
-        <Typography component="p" variant="body2" gutterBottom>
-          00 Hours
-        </Typography>
-        <Typography component="p" variant="body2" gutterBottom>
-          00 Minutes
-        </Typography>
-        <Typography component="p" variant="body2">
-          00 Seconds
-        </Typography>
+        {displayDates.days > 0 && (
+          <Typography component="p" variant="body2">
+            <Box component="strong" color="primary.dark">
+              {formatNumberToLength(displayDates.days, highestLength)}
+            </Box>{' '}
+            Days
+          </Typography>
+        )}
+        {displayDates.hours > 0 && (
+          <Typography component="p" variant="body2">
+            <Box component="strong" color="primary.dark">
+              {formatNumberToLength(displayDates.hours, highestLength)}
+            </Box>{' '}
+            Hours
+          </Typography>
+        )}
+        {displayDates.minutes > 0 && (
+          <Typography component="p" variant="body2">
+            <Box component="strong" color="primary.dark">
+              {formatNumberToLength(displayDates.minutes, highestLength)}
+            </Box>{' '}
+            Minutes
+          </Typography>
+        )}
+        {displayDates.seconds > 0 && (
+          <Typography component="p" variant="body2">
+            <Box component="strong" color="primary.dark">
+              {formatNumberToLength(displayDates.seconds, highestLength)}
+            </Box>{' '}
+            Seconds
+          </Typography>
+        )}
       </Box>
-      <Button variant="outlined" color="primary">
-        Clear
-      </Button>
     </>
   );
 };
 
-CountdownTicker.defaultProps = {
-  startDate: false,
-};
-
 CountdownTicker.propTypes = {
-  startDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.instanceOf(Date)]),
+  displayDates: PropTypes.exact({
+    days: PropTypes.number,
+    hours: PropTypes.number,
+    minutes: PropTypes.number,
+    seconds: PropTypes.number,
+  }).isRequired,
 };
 
 export default CountdownTicker;

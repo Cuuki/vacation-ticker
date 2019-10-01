@@ -3,10 +3,17 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
 import CountdownForm from '@components/Countdown/CountdownForm';
 import CountdownTicker from '@components/Countdown/CountdownTicker';
 import EditableText from '@components/UI/EditableText';
-import DateFnsUtils from '@date-io/date-fns';
+
+import addDays from 'date-fns/addDays';
+import parse from 'date-fns/parse';
+import isValid from 'date-fns/isValid';
+import format from 'date-fns/format';
+
 import {getElementByName} from '@utils/element';
 import {setMidnight} from '@utils/date';
 
@@ -30,21 +37,20 @@ type CountdownDefaultProps = {
   minDate: Date;
 };
 
-const dateUtils = new DateFnsUtils();
-
 class Countdown extends React.Component<CountdownProps, CountdownState> {
   static defaultProps: CountdownDefaultProps = {
     dateName: 'countdown_date',
     timeName: 'countdown_time',
     dateFormat: 'dd.MM.yyyy',
     timeFormat: 'HH:mm',
-    minDate: dateUtils.addDays(setMidnight(), 1),
+    minDate: addDays(setMidnight(), 1),
   };
 
   constructor(props) {
     super(props);
     this.state = {startDate: false};
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClear = this.handleClear.bind(this);
   }
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
@@ -62,26 +68,34 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
     let datetime = date;
     let newStartDate: Date | boolean = false;
 
-    if (dateUtils.isValid(dateUtils.parse(time, timeFormat))) {
+    if (isValid(parse(time, timeFormat, new Date()))) {
       datetime = `${date} ${time}`;
     } else {
-      datetime = `${date} ${dateUtils.format(setMidnight(), timeFormat)}`;
+      datetime = `${date} ${format(setMidnight(), timeFormat)}`;
     }
 
     // TODO: figure out why min date check with isBefore doesn't work and ditch aria invalid
     if (
-      dateUtils.isValid(dateUtils.parse(date, dateFormat)) &&
+      isValid(parse(date, dateFormat, new Date())) &&
       dateInput.getAttribute('aria-invalid') === 'false'
     ) {
-      newStartDate = dateUtils.parse(datetime, datetimeFormat);
+      newStartDate = parse(datetime, datetimeFormat, new Date());
 
-      if (!dateUtils.isValid(newStartDate)) {
+      if (!isValid(newStartDate)) {
         newStartDate = false;
       }
     }
 
     this.setState({
       startDate: newStartDate,
+    });
+  }
+
+  handleClear(event: React.MouseEvent<HTMLElement>): void {
+    event.preventDefault();
+
+    this.setState({
+      startDate: false,
     });
   }
 
@@ -117,23 +131,36 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
             </Paper>
           </Grid>
 
-          <Grid component="section" item xs={12}>
-            <Paper {...paperAtts}>
-              <Box
-                {...boxProps}
-                component="article"
-                bgcolor="primary.light"
-                color="primary.dark"
-                borderRadius="inherit">
-                <Typography component="h2" variant="h6" gutterBottom>
-                  <EditableText />
-                </Typography>
-                <Typography component="div" variant="body1">
-                  <CountdownTicker startDate={startDate} />
-                </Typography>
-              </Box>
-            </Paper>
-          </Grid>
+          {startDate && (
+            <Grid component="section" item xs={12}>
+              <Paper {...paperAtts}>
+                <Box
+                  {...boxProps}
+                  component="article"
+                  bgcolor="secondary.light"
+                  color="secondary.dark"
+                  borderRadius="inherit">
+                  <Typography
+                    component="h2"
+                    variant="h6"
+                    color="primary"
+                    gutterBottom>
+                    <EditableText />
+                  </Typography>
+                  <Typography component="div" variant="body1" gutterBottom>
+                    <CountdownTicker startDate={startDate} />
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    color="primary"
+                    onClick={this.handleClear}>
+                    Clear
+                  </Button>
+                </Box>
+              </Paper>
+            </Grid>
+          )}
         </Grid>
       </>
     );
