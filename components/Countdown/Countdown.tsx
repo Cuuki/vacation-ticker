@@ -3,13 +3,17 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
 import CountdownForm from '@components/Countdown/CountdownForm';
 import CountdownTicker from '@components/Countdown/CountdownTicker';
 import EditableText from '@components/UI/EditableText';
+
 import addDays from 'date-fns/addDays';
 import parse from 'date-fns/parse';
 import isValid from 'date-fns/isValid';
 import format from 'date-fns/format';
+
 import {getElementByName} from '@utils/element';
 import {setMidnight} from '@utils/date';
 
@@ -46,6 +50,7 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
     super(props);
     this.state = {startDate: false};
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClear = this.handleClear.bind(this);
   }
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
@@ -83,6 +88,14 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
 
     this.setState({
       startDate: newStartDate,
+    });
+  }
+
+  handleClear(event: React.MouseEvent<HTMLElement>): void {
+    event.preventDefault();
+
+    this.setState({
+      startDate: false,
     });
   }
 
@@ -124,15 +137,26 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
                 <Box
                   {...boxProps}
                   component="article"
-                  bgcolor="primary.light"
-                  color="primary.dark"
+                  bgcolor="secondary.light"
+                  color="secondary.dark"
                   borderRadius="inherit">
-                  <Typography component="h2" variant="h6" gutterBottom>
+                  <Typography
+                    component="h2"
+                    variant="h6"
+                    color="primary"
+                    gutterBottom>
                     <EditableText />
                   </Typography>
-                  <Typography component="div" variant="body1">
+                  <Typography component="div" variant="body1" gutterBottom>
                     <CountdownTicker startDate={startDate} />
                   </Typography>
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    color="primary"
+                    onClick={this.handleClear}>
+                    Clear
+                  </Button>
                 </Box>
               </Paper>
             </Grid>
