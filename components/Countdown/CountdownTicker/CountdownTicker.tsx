@@ -2,10 +2,9 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import differenceInSeconds from 'date-fns/differenceInSeconds';
-// import differenceInDays from 'date-fns/differenceInDays';
-import differenceInMonths from 'date-fns/differenceInMonths';
-import differenceInYears from 'date-fns/differenceInYears';
+import {getTimeRemainingUntil} from '@utils/date';
+import {formatNumberToLength} from '@utils/format';
+import isValid from 'date-fns/isValid';
 
 interface TickerProps {
   startDate: boolean | Date;
@@ -14,89 +13,62 @@ interface TickerProps {
 const CountdownTicker: React.FC<TickerProps> = props => {
   const {startDate} = props;
 
-  let years = 0;
-  let months = 0;
-  let days = 0;
-  let hours = 0;
-  let minutes = 0;
-  let seconds = 0;
+  let displayDates = {
+    years: 0,
+    months: 0,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  };
 
-  if (startDate) {
+  if (startDate && isValid(startDate)) {
     const startDateAsDate = startDate as Date;
-    const currentDate: Date = new Date();
+    const timeRemaing = getTimeRemainingUntil(startDateAsDate);
+    displayDates = Object.assign(displayDates, timeRemaing);
 
-    const diffInMonths = differenceInMonths(startDateAsDate, currentDate);
-    const diffInYears = differenceInYears(startDateAsDate, currentDate);
-    const diffInSec = differenceInSeconds(startDateAsDate, currentDate);
-
-    // const daysInSec = 60 * 60 * 24;
-    // const daysUntilRaw = diffInSec / daysInSec;
-    let yearsUntil = years;
-    let monthsUntil = months;
-
-    if (diffInYears > 0 || diffInMonths > 0) {
-      // const diffInDays = differenceInDays(startDateAsDate, currentDate);
-
-      // Determine how many full years we have
-      // Determine how many days are in each year
-      // Determine how many days are left -> these are for the months
-      // If leap year then year has 366 otherwise 365
-
-      // Determine how many months the days form by using average from days in year
-
-      if (diffInYears) {
-        yearsUntil = diffInYears;
-      }
-
-      if (diffInMonths) {
-        monthsUntil = diffInMonths;
-      }
-    }
-
-    const secUntil = Math.floor(diffInSec % 60);
-    const minUntil = Math.floor((diffInSec / 60) % 60);
-    const hoursUntil = Math.floor((diffInSec / (60 * 60)) % 24);
-    const daysUntil = Math.floor(diffInSec / (60 * 60 * 24));
-
-    seconds = secUntil;
-    minutes = minUntil;
-    hours = hoursUntil;
-    days = daysUntil;
-    months = monthsUntil;
-    years = yearsUntil;
+    // TODO: add year and month prediction
+    // Determine how many full years we have
+    // Determine how many days are in each year
+    // Determine how many days are left -> these are for the months
+    // If leap year then year has 366 otherwise 365
+    // Determine how many months the days form by using average from days in year
   }
+
+  const highestLength = Math.max(...Object.values(displayDates)).toString()
+    .length;
 
   return (
     <>
       <Box mb={3} fontFamily="Monospace">
-        {years > 0 && (
+        {displayDates.years > 0 && (
           <Typography component="p" variant="body2" gutterBottom>
-            {years} Years
+            {formatNumberToLength(displayDates.years, highestLength)} Years
           </Typography>
         )}
-        {months > 0 && (
+        {displayDates.months > 0 && (
           <Typography component="p" variant="body2" gutterBottom>
-            {months} Months
+            {formatNumberToLength(displayDates.months, highestLength)} Months
           </Typography>
         )}
-        {days > 0 && (
+        {displayDates.days > 0 && (
           <Typography component="p" variant="body2" gutterBottom>
-            {days} Days
+            {formatNumberToLength(displayDates.days, highestLength)} Days
           </Typography>
         )}
-        {hours > 0 && (
+        {displayDates.hours > 0 && (
           <Typography component="p" variant="body2" gutterBottom>
-            {hours} Hours
+            {formatNumberToLength(displayDates.hours, highestLength)} Hours
           </Typography>
         )}
-        {minutes > 0 && (
+        {displayDates.minutes > 0 && (
           <Typography component="p" variant="body2" gutterBottom>
-            {minutes} Minutes
+            {formatNumberToLength(displayDates.minutes, highestLength)} Minutes
           </Typography>
         )}
-        {seconds > 0 && (
+        {displayDates.seconds > 0 && (
           <Typography component="p" variant="body2">
-            {seconds} Seconds
+            {formatNumberToLength(displayDates.seconds, highestLength)} Seconds
           </Typography>
         )}
       </Box>
