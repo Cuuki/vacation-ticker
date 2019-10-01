@@ -6,7 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import CountdownForm from '@components/Countdown/CountdownForm';
 import CountdownTicker from '@components/Countdown/CountdownTicker';
 import EditableText from '@components/UI/EditableText';
-import DateFnsUtils from '@date-io/date-fns';
+import addDays from 'date-fns/addDays';
+import parse from 'date-fns/parse';
+import isValid from 'date-fns/isValid';
+import format from 'date-fns/format';
 import {getElementByName} from '@utils/element';
 import {setMidnight} from '@utils/date';
 
@@ -30,15 +33,13 @@ type CountdownDefaultProps = {
   minDate: Date;
 };
 
-const dateUtils = new DateFnsUtils();
-
 class Countdown extends React.Component<CountdownProps, CountdownState> {
   static defaultProps: CountdownDefaultProps = {
     dateName: 'countdown_date',
     timeName: 'countdown_time',
     dateFormat: 'dd.MM.yyyy',
     timeFormat: 'HH:mm',
-    minDate: dateUtils.addDays(setMidnight(), 1),
+    minDate: addDays(setMidnight(), 1),
   };
 
   constructor(props) {
@@ -62,20 +63,20 @@ class Countdown extends React.Component<CountdownProps, CountdownState> {
     let datetime = date;
     let newStartDate: Date | boolean = false;
 
-    if (dateUtils.isValid(dateUtils.parse(time, timeFormat))) {
+    if (isValid(parse(time, timeFormat, new Date()))) {
       datetime = `${date} ${time}`;
     } else {
-      datetime = `${date} ${dateUtils.format(setMidnight(), timeFormat)}`;
+      datetime = `${date} ${format(setMidnight(), timeFormat)}`;
     }
 
     // TODO: figure out why min date check with isBefore doesn't work and ditch aria invalid
     if (
-      dateUtils.isValid(dateUtils.parse(date, dateFormat)) &&
+      isValid(parse(date, dateFormat, new Date())) &&
       dateInput.getAttribute('aria-invalid') === 'false'
     ) {
-      newStartDate = dateUtils.parse(datetime, datetimeFormat);
+      newStartDate = parse(datetime, datetimeFormat, new Date());
 
-      if (!dateUtils.isValid(newStartDate)) {
+      if (!isValid(newStartDate)) {
         newStartDate = false;
       }
     }
