@@ -29,7 +29,10 @@ export const getTimeUntilObject = (endDate: Date): TimeUntilObject => {
 };
 
 export const convertToISOString = (date: Date): string => {
-  const parts = [getYear(date), getMonth(date), getDate(date)];
+  const year = getYear(date)
+    .toString()
+    .padStart(4, '0');
+  const parts = [year, getMonth(date), getDate(date)];
   const converted = parts.map(part => part.toString().padStart(2, '0'));
 
   return converted.join('-');
