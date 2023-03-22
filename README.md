@@ -1,4 +1,4 @@
-# Vacation Ticker
+# Vacation Ticker - legacy
 
 > **Version:** 0.1.0  
 > **Tags:** typescript, react, reactjs,nextjs, now, es6, postcss
